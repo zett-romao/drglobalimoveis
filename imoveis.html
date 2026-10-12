@@ -13,7 +13,7 @@
 <div class="pagehead"><div class="wrap"><div class="eyebrow">Vitrine</div><h1>Imóveis disponíveis</h1></div></div>
 <div class="wrap">
 <div class="filters"><div class="tabs" id="tabs"><button data-f="" class="on">Todos</button><button data-f="locacao">Alugar</button><button data-f="venda">Comprar</button></div>
-<select id="tipo"><option value="">Todos os tipos</option><option value="residencial">Residencial</option><option value="comercial">Comercial</option></select>
+<select id="tipo"><option value="">Todos os tipos</option><option value="apartamento">Apartamento</option><option value="casa">Casa</option><option value="sobrado">Sobrado</option><option value="kitnet">Kitnet</option><option value="sala">Sala comercial</option><option value="loja">Loja</option><option value="galpao">Galpão</option><option value="terreno">Terreno</option></select>
 <select id="q"><option value="">Quartos</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select>
 <input id="b" placeholder="Bairro ou cidade"></div>
 <p id="count" class="lead"></p>
@@ -25,7 +25,7 @@ const P = new URLSearchParams(location.search);
 const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 function render() {
   const tipo = $('#tipo').value, q = +($('#q').value || 0), b = norm($('#b').value);
-  const L = ALL.filter(im => (!fin || im.finalidade === fin || im.finalidade === 'ambos') && (!tipo || im.tipo === tipo) && (!q || (im.quartos || 0) >= q) && (!b || norm(local(im) + ' ' + titulo(im)).includes(b)));
+  const L = ALL.filter(im => (!fin || im.finalidade === fin || im.finalidade === 'ambos') && (!tipo || im.subtipo === tipo || im.tipo === tipo) && (!q || (im.quartos || 0) >= q) && (!b || norm(local(im) + ' ' + titulo(im)).includes(b)));
   $('#count').textContent = L.length + (L.length === 1 ? ' imóvel encontrado' : ' imóveis encontrados');
   $('#lista').innerHTML = L.length ? L.map(card).join('') : '<div class="empty">Nenhum imóvel encontrado com esses filtros. <a target="_blank" rel="noopener" href="' + wa('Olá! Procuro um imóvel e não encontrei no site.') + '">Fale conosco pelo WhatsApp</a>.</div>';
 }
