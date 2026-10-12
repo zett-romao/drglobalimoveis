@@ -1,0 +1,38 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="config.js"></script><script src="common.js"></script>
+
+<title>Imóveis disponíveis – D.R. Global Imóveis</title>
+<meta name="description" content="Imóveis para alugar e comprar no estado de São Paulo – D.R. Global Imóveis.">
+</head><body data-page="imoveis"><header id="header"></header>
+<div class="pagehead"><div class="wrap"><div class="eyebrow">Vitrine</div><h1>Imóveis disponíveis</h1></div></div>
+<div class="wrap">
+<div class="filters"><div class="tabs" id="tabs"><button data-f="" class="on">Todos</button><button data-f="locacao">Alugar</button><button data-f="venda">Comprar</button></div>
+<select id="tipo"><option value="">Todos os tipos</option><option value="residencial">Residencial</option><option value="comercial">Comercial</option></select>
+<select id="q"><option value="">Quartos</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select>
+<input id="b" placeholder="Bairro ou cidade"></div>
+<p id="count" class="lead"></p>
+<div id="lista" class="grid" style="margin-bottom:70px"><div class="empty">Carregando…</div></div></div>
+<footer id="footer"></footer>
+<script>
+let ALL = [], fin = '';
+const P = new URLSearchParams(location.search);
+const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+function render() {
+  const tipo = $('#tipo').value, q = +($('#q').value || 0), b = norm($('#b').value);
+  const L = ALL.filter(im => (!fin || im.finalidade === fin || im.finalidade === 'ambos') && (!tipo || im.tipo === tipo) && (!q || (im.quartos || 0) >= q) && (!b || norm(local(im) + ' ' + titulo(im)).includes(b)));
+  $('#count').textContent = L.length + (L.length === 1 ? ' imóvel encontrado' : ' imóveis encontrados');
+  $('#lista').innerHTML = L.length ? L.map(card).join('') : '<div class="empty">Nenhum imóvel encontrado com esses filtros. <a target="_blank" rel="noopener" href="' + wa('Olá! Procuro um imóvel e não encontrei no site.') + '">Fale conosco pelo WhatsApp</a>.</div>';
+}
+document.addEventListener('DOMContentLoaded', async () => {
+  fin = P.get('f') || ''; $('#tipo').value = P.get('tipo') || ''; $('#q').value = P.get('q') || ''; $('#b').value = P.get('b') || '';
+  document.querySelectorAll('#tabs button').forEach(bt => { bt.classList.toggle('on', bt.dataset.f === fin); bt.onclick = () => { fin = bt.dataset.f; document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('on', x === bt)); render(); }; });
+  ['tipo', 'q', 'b'].forEach(id => $('#' + id).addEventListener('input', render));
+  try { ALL = await carregarVitrine(); render(); } catch (e) { console.error(e); $('#lista').innerHTML = '<div class="empty">Não foi possível carregar os imóveis agora.</div>'; }
+});
+</script></body></html>
