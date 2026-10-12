@@ -31,7 +31,7 @@
 </div></section>
 
 <section class="services" id="servicos"><div class="wrap">
-<div class="center"><div class="eyebrow">O que fazemos</div><h2>Serviços</h2><p class="lead">Soluções completas para proprietários, inquilinos e compradores.</p></div>
+<div class="center"><h2>Serviços</h2><p class="lead">Soluções completas para proprietários, inquilinos e compradores.</p></div>
 <div class="svc">
 <div><div class="ic">🔑</div><h3>Locação</h3><p>Divulgação do imóvel, visitas, análise cadastral do interessado e contrato com as garantias adequadas.</p></div>
 <div><div class="ic">📊</div><h3>Administração de aluguéis</h3><p>Cobrança mensal, repasse ao proprietário, prestação de contas e acompanhamento do contrato até a entrega das chaves.</p></div>
@@ -66,7 +66,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
   $('#busca').addEventListener('submit', ev => { ev.preventDefault(); const f = new FormData(ev.target); location.href = 'imoveis.html?' + new URLSearchParams([...f].filter(x => x[1])); });
   $('#c-wa').href = wa('Olá! Vim pelo site da D.R. Global Imóveis.'); $('#c-wa').textContent = S.WHATSAPP_FMT;
-  $('#c-mail').href = 'mailto:' + S.EMAIL; $('#c-mail').textContent = S.EMAIL; $('#c-end').textContent = S.ENDERECO;
+  $('#c-mail').href = 'mailto:' + S.EMAIL; $('#c-mail').textContent = S.EMAIL; $('#c-end').innerHTML = enderecoHTML();
   try {
     const ims = (await carregarVitrine()).sort((a, b) => (b.atualizadoEm?.seconds || 0) - (a.atualizadoEm?.seconds || 0)).slice(0, 6);
     $('#destaques').innerHTML = ims.length ? ims.map(card).join('') : '<div class="empty">Novos imóveis em breve. Fale conosco pelo WhatsApp para conhecer as opções disponíveis.</div>';

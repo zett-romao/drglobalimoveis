@@ -9,7 +9,9 @@ window.SITE = {
   CRECI_PJ: '43.112-J',
   CRECI_RESP: '229508',
   RESPONSAVEL: 'Aparecido Donizete Romão',
-  ENDERECO: 'Alameda Rio Negro, 1030 – Escritório 206 – Alphaville – Barueri/SP – CEP 06454-000'
+  ENDERECO: 'Alameda Rio Negro, 1030 – Escritório 206 – Alphaville – Barueri/SP – CEP 06454-000',
+  ENDERECO_L1: 'Alameda Rio Negro, 1030 – Escritório 206',
+  ENDERECO_L2: 'Alphaville – Barueri/SP – CEP 06454-000'
 };
 const firebaseConfig = {
   apiKey: "AIzaSyBnkH-HvtOnrXBwupBHdhF107C7ysDUnI4",

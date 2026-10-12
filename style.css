@@ -83,3 +83,7 @@ section{padding:72px 0}.center{text-align:center}.lead{color:var(--muted);max-wi
 .lb{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;place-items:center;z-index:100}.lb.on{display:grid}.lb img{max-height:90vh;max-width:92vw}
 .brand img{height:50px;width:50px;object-fit:contain}
 .brand.light img{background:#fff;border-radius:50%;padding:2px}
+
+.nw{white-space:nowrap}
+@media(max-width:420px){.nw{font-size:.9em}}
+.by{text-align:center;padding:0 16px 22px;margin-top:-8px;font-size:.8rem;color:rgba(255,255,255,.6)}
