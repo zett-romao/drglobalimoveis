@@ -87,3 +87,5 @@ section{padding:72px 0}.center{text-align:center}.lead{color:var(--muted);max-wi
 .nw{white-space:nowrap}
 @media(max-width:420px){.nw{font-size:.9em}}
 .by{text-align:center;padding:0 16px 22px;margin-top:-8px;font-size:.8rem;color:rgba(255,255,255,.6)}
+a[href^="mailto:"]{font-style:italic}
+a.fx{color:inherit;text-decoration:underline;text-underline-offset:2px}

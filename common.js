@@ -54,3 +54,31 @@ function montarLayout() {
   document.body.appendChild(f);
 }
 document.addEventListener('DOMContentLoaded', montarLayout);
+
+// Termos estrangeiros em itálico; WhatsApp e e-mails sempre clicáveis
+const FX_RE = /\b(WhatsApp|Tour)\b|([\w.+-]+@[\w-]+(?:\.[\w-]+)+)/g;
+const FX_SKIP = new Set(['SCRIPT','STYLE','OPTION','SELECT','TEXTAREA','INPUT','TITLE','NOSCRIPT']);
+function decorar(root = document.body) {
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode(n) {
+    for (let e = n.parentElement; e; e = e.parentElement) { if (FX_SKIP.has(e.tagName) || e.classList.contains('fx')) return NodeFilter.FILTER_REJECT; }
+    FX_RE.lastIndex = 0; return FX_RE.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; } });
+  const nodes = []; while (w.nextNode()) nodes.push(w.currentNode);
+  nodes.forEach(n => {
+    const frag = document.createDocumentFragment(), t = n.nodeValue; let last = 0, m; FX_RE.lastIndex = 0;
+    const emLinkOk = !n.parentElement.closest('a,button,label');
+    while ((m = FX_RE.exec(t))) {
+      frag.appendChild(document.createTextNode(t.slice(last, m.index)));
+      const em = document.createElement('em'); em.className = 'fx'; em.textContent = m[0];
+      if (emLinkOk && (m[0] === 'WhatsApp' || m[2])) {
+        const a = document.createElement('a'); a.className = 'fx';
+        if (m[2]) a.href = 'mailto:' + m[2]; else { a.href = wa('Olá! Vim pelo site da D.R. Global Imóveis.'); a.target = '_blank'; a.rel = 'noopener'; }
+        a.appendChild(em); frag.appendChild(a);
+      } else frag.appendChild(em);
+      last = m.index + m[0].length;
+    }
+    frag.appendChild(document.createTextNode(t.slice(last)));
+    n.parentNode.replaceChild(frag, n);
+  });
+}
+let fxT; new MutationObserver(() => { clearTimeout(fxT); fxT = setTimeout(() => decorar(), 60); }).observe(document.documentElement, { childList: true, subtree: true });
+document.addEventListener('DOMContentLoaded', () => setTimeout(() => decorar(), 0));
