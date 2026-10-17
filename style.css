@@ -97,3 +97,5 @@ a.fx{color:inherit;text-decoration:underline;text-underline-offset:2px}
 .hero-marca{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:clamp(1.5rem,3.4vw,2.2rem);line-height:1.15;color:#fff;margin-bottom:.35em}
 .hero-marca .dig{display:block;margin:.3em 0 0;top:0;height:.82em}
 @media(max-width:600px){.brand>span .dig{display:block;margin:3px 0 0;top:0;height:.85em}}
+/* CRECI no destaque da home: discreto, abaixo da marca */
+.hero .hero-creci{font-size:.72rem;letter-spacing:.14em;font-weight:600;opacity:.85;margin-bottom:.9em}
