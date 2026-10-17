@@ -7,4 +7,5 @@ window.RENTLY_SITE = {
   selo: window.SELO_DIGITAL || null,                   // "digital" desenhado ao lado do nome (selo-digital.js)
   seloTexto: 'Digital',                               // entra no título da aba: "D.R. Global Imóveis Digital — …"
   parceiro: 'corretor.html',                          // "Seja corretor parceiro" abre a Área do corretor deste site
+  paginas: { corretor: 'corretor.html' },             // páginas do Meu site com endereço próprio (as outras: index.html?p=<id>)
 };
