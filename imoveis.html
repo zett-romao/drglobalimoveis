@@ -1,38 +1,218 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="icon" href="logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-<script src="config.js"></script><script src="common.js"></script>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Imóveis disponíveis — DRG-Rently</title>
+  <link rel="icon" href="icones/favicon.ico?v=20260801" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="icones/favicon-32.png?v=20260801">
+  <meta name="description" id="meta-desc" content="Imóveis residenciais e comerciais disponíveis">
 
-<title>Imóveis disponíveis – D.R. Global Imóveis</title>
-<meta name="description" content="Imóveis para alugar e comprar no estado de São Paulo – D.R. Global Imóveis.">
-</head><body data-page="imoveis"><header id="header"></header>
-<div class="pagehead"><div class="wrap"><div class="eyebrow">Vitrine</div><h1>Imóveis disponíveis</h1></div></div>
-<div class="wrap">
-<div class="filters"><div class="tabs" id="tabs"><button data-f="" class="on">Todos</button><button data-f="locacao">Alugar</button><button data-f="venda">Comprar</button></div>
-<select id="tipo"><option value="">Todos os tipos</option><option value="apartamento">Apartamento</option><option value="casa">Casa</option><option value="sobrado">Sobrado</option><option value="kitnet">Kitnet</option><option value="sala">Sala comercial</option><option value="loja">Loja</option><option value="galpao">Galpão</option><option value="terreno">Terreno</option></select>
-<select id="q"><option value="">Quartos</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select>
-<input id="b" placeholder="Bairro ou cidade"></div>
-<p id="count" class="lead"></p>
-<div id="lista" class="grid" style="margin-bottom:70px"><div class="empty">Carregando…</div></div></div>
-<footer id="footer"></footer>
-<script>
-let ALL = [], fin = '';
-const P = new URLSearchParams(location.search);
-const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
-function render() {
-  const tipo = $('#tipo').value, q = +($('#q').value || 0), b = norm($('#b').value);
-  const L = ALL.filter(im => (!fin || im.finalidade === fin || im.finalidade === 'ambos') && (!tipo || im.subtipo === tipo || im.tipo === tipo) && (!q || (im.quartos || 0) >= q) && (!b || norm(local(im) + ' ' + titulo(im)).includes(b)));
-  $('#count').textContent = L.length + (L.length === 1 ? ' imóvel encontrado' : ' imóveis encontrados');
-  $('#lista').innerHTML = L.length ? L.map(card).join('') : '<div class="empty">Nenhum imóvel encontrado com esses filtros. <a target="_blank" rel="noopener" href="' + wa('Olá! Procuro um imóvel e não encontrei no site.') + '">Fale conosco pelo WhatsApp</a>.</div>';
-}
-document.addEventListener('DOMContentLoaded', async () => {
-  fin = P.get('f') || ''; $('#tipo').value = P.get('tipo') || ''; $('#q').value = P.get('q') || ''; $('#b').value = P.get('b') || '';
-  document.querySelectorAll('#tabs button').forEach(bt => { bt.classList.toggle('on', bt.dataset.f === fin); bt.onclick = () => { fin = bt.dataset.f; document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('on', x === bt)); render(); }; });
-  ['tipo', 'q', 'b'].forEach(id => $('#' + id).addEventListener('input', render));
-  try { ALL = await carregarVitrine(); render(); } catch (e) { console.error(e); $('#lista').innerHTML = '<div class="empty">Não foi possível carregar os imóveis agora.</div>'; }
-});
-</script></body></html>
+  <meta property="og:type" content="website">
+  <meta property="og:title" id="og-title" content="Imóveis disponíveis">
+  <meta property="og:description" id="og-desc" content="Confira nossos imóveis disponíveis">
+  <meta property="og:image" id="og-image" content="logo.png">
+
+  <link rel="stylesheet" href="styles.css?v=20260712a-overflow-clip">
+  <link rel="stylesheet" href="public.css?v=20261013g-site">
+  <link rel="stylesheet" href="tema.css">
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js?v=20261013a"></script>
+</head>
+<body class="public-page">
+
+  <div id="loading" class="loading-overlay">
+    <div class="loading-spinner"></div>
+    <p>Carregando imóveis…</p>
+  </div>
+
+  <div id="error-state" class="error-state" style="display:none;">
+    <img src="logo.png" alt="DR Global" class="error-logo">
+    <h1>Imobiliária não encontrada</h1>
+    <p>O link pode estar incorreto. Confira a URL.</p>
+  </div>
+
+  <main id="content" style="display:none;">
+
+    <header class="public-header">
+      <div class="public-header-inner">
+        <img src="logo.png" alt="D.R. Global" class="public-logo">
+        <div class="public-header-text">
+          <h2 id="header-empresa">—</h2>
+          <p>Imóveis residenciais e comerciais</p>
+        </div>
+        <button class="btn-anunciar-imovel" onclick="abrirAnunciarImovel()" title="Tem um imóvel pra alugar ou vender? Anuncie aqui!">
+          📤 Anuncie seu imóvel
+        </button>
+      </div>
+    </header>
+
+    <section class="public-hero" id="public-hero">
+      <div class="public-container">
+        <div class="public-breadcrumb" id="hero-breadcrumb">Vitrine</div>
+        <h1 id="hero-titulo">Imóveis disponíveis</h1>
+        <p style="color: rgba(255,255,255,0.85); margin-top:6px;" id="hero-subtitulo">
+          <span id="vitrine-count">—</span> imóveis publicados
+        </p>
+      </div>
+    </section>
+
+    <!-- Tabs Aluguel | Venda -->
+    <section class="vitrine-tabs-wrapper">
+      <div class="public-container">
+        <div class="vitrine-tabs" role="tablist" aria-label="Filtrar por modalidade">
+          <button type="button" class="vitrine-tab active" data-tab-finalidade="" role="tab" aria-selected="true">
+            🏘️ Todos os imóveis
+          </button>
+          <button type="button" class="vitrine-tab tab-aluguel" data-tab-finalidade="locacao" role="tab" aria-selected="false">
+            🏠 Para Alugar
+          </button>
+          <button type="button" class="vitrine-tab tab-venda" data-tab-finalidade="venda" role="tab" aria-selected="false">
+            💼 Para Comprar
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filtros simples (sem o select de finalidade que virou tab) -->
+    <section class="vitrine-filtros">
+      <div class="public-container">
+        <div class="filtros-row">
+          <input type="text" id="filtro-busca" placeholder="🔍 Buscar por código, bairro, cidade…">
+          <select id="filtro-tipo">
+            <option value="">Todos os tipos</option>
+            <option value="residencial">Residencial</option>
+            <option value="comercial">Comercial</option>
+          </select>
+          <select id="filtro-quartos">
+            <option value="">Quartos (todos)</option>
+            <option value="1">1+ quarto</option>
+            <option value="2">2+ quartos</option>
+            <option value="3">3+ quartos</option>
+            <option value="4">4+ quartos</option>
+          </select>
+          <button type="button" class="btn-mais-filtros" onclick="document.body.classList.toggle('filtros-abertos')">⚙ Mais filtros</button>
+          <div class="filtros-mais">
+            <select id="filtro-bairro"><option value="">Todos os bairros</option></select>
+            <input type="number" id="filtro-preco-min" min="0" step="1000" inputmode="numeric" placeholder="Preço mín. (R$)">
+            <input type="number" id="filtro-preco-max" min="0" step="1000" inputmode="numeric" placeholder="Preço máx. (R$)">
+            <select id="filtro-ordem">
+              <option value="">Ordenar: relevância</option>
+              <option value="menor">Menor preço</option>
+              <option value="maior">Maior preço</option>
+              <option value="recentes">Mais recentes</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lista de cards -->
+    <section class="public-section">
+      <div class="public-container">
+        <div id="banner-lista" class="banner-lista" style="display:none;"></div>
+        <div id="lista-imoveis" class="vitrine-grid"></div>
+      </div>
+    </section>
+
+    <footer class="public-footer">
+      <div class="public-container">
+        <p>© <span id="ano-rodape"></span> <span id="footer-empresa">DRG-Rently</span> · Todos os direitos reservados</p>
+        <p class="muted" style="font-size:11px;">Powered by <a href="https://github.com/zett-romao/drg-rently" target="_blank">DRG-Rently</a></p>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Modal: Anuncie seu imóvel (captação de leads) -->
+  <div id="modal-anunciar" class="modal-overlay-public" style="display:none;" onclick="if(event.target===this)fecharAnunciarImovel()">
+    <div class="modal-public">
+      <div class="modal-public-header">
+        <h3>📤 Anuncie seu imóvel</h3>
+        <button class="modal-close" onclick="fecharAnunciarImovel()">×</button>
+      </div>
+      <div class="modal-public-body">
+        <p class="muted" style="margin-bottom:14px;">
+          Preencha os dados abaixo e nossa equipe vai entrar em contato em até <strong>1 dia útil</strong>.
+        </p>
+
+        <div id="anunciar-alert" class="alert" style="display:none; margin-bottom:14px;"></div>
+
+        <div class="form-group">
+          <label>Seu nome <span style="color:#dc2626;">*</span></label>
+          <input type="text" id="anun-nome" placeholder="Nome completo" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>WhatsApp <span style="color:#dc2626;">*</span></label>
+            <input type="text" id="anun-telefone" placeholder="(00) 00000-0000" required>
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" id="anun-email" placeholder="seu@email.com">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Quero <span style="color:#dc2626;">*</span></label>
+          <select id="anun-finalidade" required>
+            <option value="">— Selecione —</option>
+            <option value="locacao">🏠 Alugar meu imóvel</option>
+            <option value="venda">💼 Vender meu imóvel</option>
+            <option value="ambos">🏘 Tanto faz (alugar ou vender)</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tipo do imóvel</label>
+            <select id="anun-tipo">
+              <option value="">— Não especificar —</option>
+              <option value="apartamento">Apartamento</option>
+              <option value="casa">Casa</option>
+              <option value="sobrado">Sobrado</option>
+              <option value="kitnet">Kitnet</option>
+              <option value="sala">Sala comercial</option>
+              <option value="loja">Loja</option>
+              <option value="galpao">Galpão</option>
+              <option value="terreno">Terreno</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Cidade / Bairro</label>
+            <input type="text" id="anun-cidade" placeholder="Ex: São Paulo / Pinheiros">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Descrição (opcional)</label>
+          <textarea id="anun-descricao" rows="3" placeholder="Ex: Apto de 2 quartos com vaga, próximo ao metrô, 70m²..."></textarea>
+        </div>
+
+        <p class="muted" style="font-size:11px;">
+          🔒 Seus dados serão usados apenas pra entrar em contato sobre o anúncio. LGPD compliant.
+        </p>
+      </div>
+      <div class="modal-public-footer">
+        <button class="btn btn-secondary" onclick="fecharAnunciarImovel()">Cancelar</button>
+        <button class="btn btn-primary" id="btn-anunciar-enviar" onclick="enviarAnuncio()">📤 Enviar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WhatsApp FAB (botão flutuante) -->
+  <a id="whatsapp-fab" class="whatsapp-fab" href="#" target="_blank" rel="noopener" style="display:none;" title="Fale conosco no WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+    </svg>
+  </a>
+
+  <script src="rently-site.js"></script>
+  <script src="public-shell.js?v=20261016b"></script>
+  <script src="public-imoveis.js?v=20261016b"></script>
+</body>
+</html>

@@ -1,0 +1,1003 @@
+/* =========================================================
+   DRG-Rently — Estilos das páginas públicas
+   ========================================================= */
+
+body.public-page {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: block;
+}
+
+.public-page main { display: block; }
+
+.public-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+
+/* Header */
+.public-header {
+  background: var(--sidebar-bg);
+  color: white;
+  padding: 18px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.public-header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.public-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+.public-header-text h2 {
+  font-size: 20px;
+  color: white;
+  line-height: 1.2;
+}
+
+.public-header-text p {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 2px;
+}
+
+/* Hero */
+.public-hero {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  padding: 36px 0;
+  transition: background 0.4s ease;
+}
+.public-hero.mode-locacao {
+  background: linear-gradient(135deg, #0F766E 0%, #0E7490 100%);
+}
+.public-hero.mode-venda {
+  background: linear-gradient(135deg, #B45309 0%, #92400E 100%);
+}
+
+/* Botão "Anuncie seu imóvel" no header da vitrine */
+.btn-anunciar-imovel {
+  margin-left: auto;
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-anunciar-imovel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.5);
+}
+@media (max-width: 600px) {
+  .btn-anunciar-imovel {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+}
+
+/* WhatsApp FAB (flutuante) */
+.whatsapp-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25D366;
+  color: white;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45), 0 2px 6px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  transition: all 0.2s ease;
+  animation: whatsapp-pulse 2.4s ease-in-out infinite;
+}
+.whatsapp-fab:hover {
+  background: #1DA851;
+  transform: scale(1.1);
+  box-shadow: 0 8px 28px rgba(37, 211, 102, 0.6);
+}
+@keyframes whatsapp-pulse {
+  0%, 100% {
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45), 0 0 0 0 rgba(37, 211, 102, 0.7);
+  }
+  50% {
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45), 0 0 0 12px rgba(37, 211, 102, 0);
+  }
+}
+@media (max-width: 600px) {
+  .whatsapp-fab {
+    width: 54px;
+    height: 54px;
+    bottom: 16px;
+    right: 16px;
+  }
+}
+
+/* Modal público (Anunciar seu imóvel) */
+.modal-overlay-public {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(3px);
+}
+.modal-public {
+  background: white;
+  border-radius: 14px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+.modal-public-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+}
+.modal-public-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #78350F;
+}
+.modal-public-header .modal-close {
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #78350F;
+  line-height: 1;
+}
+.modal-public-body {
+  padding: 22px 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+.modal-public-body .form-group { margin-bottom: 14px; }
+.modal-public-body label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #334155;
+}
+.modal-public-body input,
+.modal-public-body select,
+.modal-public-body textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+}
+.modal-public-body input:focus,
+.modal-public-body select:focus,
+.modal-public-body textarea:focus {
+  outline: none;
+  border-color: #F59E0B;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+}
+.modal-public-body .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 500px) {
+  .modal-public-body .form-row { grid-template-columns: 1fr; }
+}
+.modal-public-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #E2E8F0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  background: #F8FAFC;
+}
+.modal-public-footer .btn {
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.modal-public-footer .btn-secondary {
+  background: white;
+  border-color: #CBD5E1;
+  color: #475569;
+}
+.modal-public-footer .btn-secondary:hover { background: #F1F5F9; }
+.modal-public-footer .btn-primary {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  color: white;
+}
+.modal-public-footer .btn-primary:hover { box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4); }
+
+/* Tabs Aluguel | Venda (vitrine) */
+.vitrine-tabs-wrapper {
+  background: white;
+  border-bottom: 1px solid #E2E8F0;
+}
+.vitrine-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 8px 0;
+  flex-wrap: wrap;
+}
+.vitrine-tab {
+  padding: 10px 18px;
+  background: transparent;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 22px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.vitrine-tab:hover {
+  background: #F1F5F9;
+  border-color: #94A3B8;
+}
+.vitrine-tab.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  box-shadow: 0 2px 8px rgba(71, 85, 105, 0.25);
+}
+.vitrine-tab.tab-aluguel.active {
+  background: #0F766E;
+  border-color: #0F766E;
+  box-shadow: 0 2px 8px rgba(15, 118, 110, 0.35);
+}
+.vitrine-tab.tab-venda.active {
+  background: #B45309;
+  border-color: #B45309;
+  box-shadow: 0 2px 8px rgba(180, 83, 9, 0.35);
+}
+
+.public-hero .public-container { display: block; }
+
+.public-breadcrumb {
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.public-hero h1 {
+  font-size: 30px;
+  color: white;
+  margin-bottom: 14px;
+  line-height: 1.2;
+}
+
+.public-price {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.public-price .muted-label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+}
+
+.public-price strong {
+  font-size: 26px;
+  color: white;
+}
+
+/* Seções */
+.public-section {
+  padding: 30px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.public-section:last-of-type { border-bottom: none; }
+
+.public-section h3 {
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: var(--primary-dark);
+}
+
+/* Galeria */
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.galeria .empty {
+  grid-column: 1 / -1;
+  padding: 30px;
+  text-align: center;
+  color: var(--text-light);
+  font-style: italic;
+  background: white;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.galeria-item {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--bg);
+  box-shadow: var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.galeria-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.galeria-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Features */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.feature-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+
+.feature-card .ft-ico {
+  font-size: 24px;
+  width: 40px;
+  text-align: center;
+}
+
+.feature-card .ft-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.feature-card .ft-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Endereço */
+.endereco-publico {
+  font-size: 16px;
+  color: var(--text);
+}
+
+/* Contato */
+.contato-section {
+  background: var(--primary-light);
+}
+
+.contato-empresa {
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+
+.contato-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.contato-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.contato-actions a:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+/* Footer */
+.public-footer {
+  background: var(--sidebar-bg);
+  color: rgba(255,255,255,0.7);
+  padding: 22px 0;
+  font-size: 12px;
+  text-align: center;
+}
+
+.public-footer a { color: rgba(255,255,255,0.85); }
+
+/* Loading */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: var(--text-muted);
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Erro */
+.error-state {
+  max-width: 480px;
+  margin: 80px auto;
+  padding: 40px 22px;
+  text-align: center;
+}
+
+.error-logo {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 18px;
+  display: block;
+  opacity: 0.6;
+}
+
+.error-state h1 {
+  font-size: 22px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.error-state p {
+  color: var(--text-muted);
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 30px;
+  cursor: zoom-out;
+}
+
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  background: rgba(255,255,255,0.12);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.25);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-close:hover { background: rgba(255,255,255,0.22); }
+
+/* ----- Vitrine (lista de imóveis) ----- */
+.vitrine-filtros {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.filtros-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 10px;
+}
+
+.filtros-row input,
+.filtros-row select {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-family: inherit;
+  background: white;
+}
+
+.filtros-row input:focus,
+.filtros-row select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(71,85,105,0.12);
+}
+
+.vitrine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.vitrine-empty {
+  grid-column: 1 / -1;
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--text-muted);
+  background: white;
+  border-radius: var(--radius);
+  border: 1px dashed var(--border);
+}
+
+.vitrine-card {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--text);
+  box-shadow: var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.vitrine-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.vitrine-card-cover {
+  aspect-ratio: 16 / 11;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.vitrine-card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vitrine-card-noimg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: var(--text-light);
+  background: linear-gradient(135deg, var(--bg) 0%, var(--primary-light) 100%);
+}
+
+.vitrine-card-noimg span {
+  font-size: 12px;
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.vitrine-card-body {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vitrine-card-tipo {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.vitrine-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.vitrine-card-specs {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.vitrine-card-price {
+  margin-top: 6px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.vitrine-card-price .price-small {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.vitrine-card-price-2 {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.vitrine-card-cover { position: relative; }
+
+.badge-finalidade {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  color: white;
+}
+
+.badge-locacao { background: var(--primary); }
+.badge-venda   { background: #B45309; }
+.badge-ambos   { background: #7E22CE; }
+
+.filtros-row { grid-template-columns: 2fr 1fr 1fr 1fr; }
+
+/* Mobile */
+@media (max-width: 640px) {
+  .public-hero h1 { font-size: 24px; }
+  .public-price strong { font-size: 22px; }
+  .public-header-inner { padding: 0 14px; }
+  .public-container { padding: 0 14px; }
+  .filtros-row { grid-template-columns: 1fr; }
+}
+
+/* Código do anúncio (o cliente cita, a imobiliária busca) */
+.public-codigo { display: inline-block; margin: 2px 0 10px; padding: 3px 10px; border-radius: 999px;
+  background: rgba(255,255,255,.18); font-size: 13px; font-weight: 600; letter-spacing: .5px; }
+.vitrine-card-codigo { font-size: 11px; color: #64748B; letter-spacing: .4px; margin-top: 2px; }
+
+/* Selo PERMUTA — carimbo sobre a foto (só no site; nos portais vai no texto) */
+.galeria-item { position: relative; }
+.selo-permuta {
+  position: absolute; top: 44px; left: 10px; z-index: 2; pointer-events: none;
+  padding: 5px 14px; border: 3px double #fff; border-radius: 6px;
+  background: rgba(185, 28, 28, .92); color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.35);
+  font-size: 13px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+  transform: rotate(-14deg);
+}
+.galeria-item .selo-permuta { top: 18px; left: 14px; font-size: 16px; }
+
+/* Descrição do imóvel com "Ver mais" */
+.descricao-texto { white-space: pre-line; line-height: 1.65; font-size: 15px; color: var(--text); position: relative; }
+.descricao-texto.is-recolhida { max-height: 11.5em; overflow: hidden; }
+.descricao-texto.is-recolhida::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3em;
+  background: linear-gradient(rgba(255,255,255,0), var(--bg, #fff)); }
+.descricao-ver-mais { margin-top: 8px; background: none; border: 0; padding: 8px 0; font: inherit; font-weight: 700;
+  color: var(--primary); cursor: pointer; min-height: 40px; }
+
+/* =========================================================
+   Página do imóvel 2.0 — carrossel, valores, ações, cartão,
+   semelhantes e ficha para impressão
+   ========================================================= */
+.hero-custos { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 8px; font-size: 13px; color: rgba(255,255,255,.8); }
+.hero-custos strong { color: #fff; font-size: 14px; }
+
+.acoes-imovel { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin-top: 18px; }
+.acoes-imovel button, .acoes-imovel a {
+  min-height: 44px; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,.35);
+  background: rgba(255,255,255,.12); color: #fff; font: inherit; font-weight: 600; font-size: 14px;
+  cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; text-align: center;
+}
+.acoes-imovel .acao-whats { background: #16A34A; border-color: #16A34A; }
+.acoes-imovel button:active, .acoes-imovel a:active, .carrossel-seta:active, .descricao-ver-mais:active,
+.contato-actions a:active { transform: scale(.98); filter: brightness(.92); }
+
+/* Carrossel: scroll-snap nativo (desliza com o dedo) */
+.secao-fotos { padding-top: 18px; }
+.carrossel { position: relative; }
+.carrossel-trilho { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  border-radius: var(--radius-sm); box-shadow: var(--shadow); scrollbar-width: none; background: #0F172A; }
+.carrossel-trilho::-webkit-scrollbar { display: none; }
+.carrossel-slide { flex: 0 0 100%; scroll-snap-align: start; aspect-ratio: 4 / 3; max-height: 72vh; cursor: zoom-in; }
+.carrossel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.carrossel-seta { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%;
+  border: 0; background: rgba(255,255,255,.88); color: #0F172A; font-size: 26px; line-height: 1; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,.25); z-index: 2; }
+.carrossel-ant { left: 10px; } .carrossel-prox { right: 10px; }
+.carrossel-contador { position: absolute; right: 10px; bottom: 10px; z-index: 2; padding: 3px 10px; border-radius: 999px;
+  background: rgba(15,23,42,.72); color: #fff; font-size: 12px; font-weight: 700; }
+.carrossel .selo-permuta { top: 16px; left: 14px; z-index: 3; font-size: 16px; }
+.carrossel .empty { padding: 30px; text-align: center; color: var(--text-light); background: white;
+  border: 1px dashed var(--border); border-radius: var(--radius-sm); }
+
+/* Lightbox com navegação */
+.lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.12); color: #fff; font-size: 30px; cursor: pointer; }
+.lightbox-prev { left: 14px; } .lightbox-next { right: 14px; }
+.lightbox-contador { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 13px; font-weight: 600; }
+
+/* Características em grade compacta (2 colunas no celular) */
+.features-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.feature-card { padding: 10px 12px; gap: 8px; }
+.feature-card .ft-ico { font-size: 20px; width: 28px; }
+.feature-card .ft-value { font-size: 15px; }
+
+/* Cartão "Gostou do imóvel?" */
+.cartao-interesse { background: #fff; border-radius: 14px; padding: 20px; box-shadow: 0 6px 24px rgba(15,23,42,.12); max-width: 560px; margin: 0 auto; }
+.cartao-interesse h3 { text-align: center; margin: 14px 0 4px; }
+.cartao-interesse .contato-empresa { text-align: center; font-size: 13px; color: var(--text-muted); }
+.cartao-valores { border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+.cartao-linha { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; padding: 3px 0; color: var(--text-muted); }
+.cartao-linha.is-forte { font-size: 18px; font-weight: 700; color: var(--text); }
+.cartao-interesse .contato-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.cartao-interesse .contato-actions a { justify-content: center; min-height: 46px; }
+.cartao-interesse .contato-actions a:first-child { grid-column: 1 / -1; background: #16A34A; }
+
+/* Imóveis semelhantes */
+.semelhantes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.semelhante-card { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  overflow: hidden; text-decoration: none; color: inherit; box-shadow: var(--shadow); }
+.semelhante-capa { position: relative; aspect-ratio: 4 / 3; background: #E2E8F0; display: flex; align-items: center; justify-content: center; font-size: 34px; }
+.semelhante-capa img { width: 100%; height: 100%; object-fit: cover; }
+.semelhante-corpo { display: flex; flex-direction: column; gap: 3px; padding: 10px 12px 12px; font-size: 14px; }
+.semelhante-corpo .muted { font-size: 12px; }
+.semelhante-preco { font-weight: 700; color: var(--primary-dark); }
+.selo-permuta.selo-mini { top: 10px; left: 8px; font-size: 11px; padding: 3px 9px; }
+
+@media (max-width: 640px) {
+  .carrossel-seta { display: none; } /* no celular desliza com o dedo */
+  .carrossel-slide { aspect-ratio: 4 / 3.2; }
+  .lightbox { padding: 10px; }
+}
+
+/* Ficha para impressão */
+@media print {
+  .acoes-imovel, .carrossel-seta, .carrossel-contador, .descricao-ver-mais, .whatsapp-fab,
+  #semelhantes-section, .contato-actions, .lightbox, .public-footer { display: none !important; }
+  .public-hero { background: #fff !important; color: #000 !important; padding: 10px 0 !important; }
+  .public-hero *, .hero-custos strong { color: #000 !important; }
+  .public-codigo { border: 1px solid #000; }
+  .carrossel-trilho { overflow: visible; box-shadow: none; background: none; }
+  .carrossel-slide { display: none; }
+  .carrossel-slide:first-child { display: block; flex-basis: 100%; max-height: 9cm; }
+  .descricao-texto.is-recolhida { max-height: none; }
+  .descricao-texto::after { display: none; }
+  .public-section { padding: 10px 0; break-inside: avoid; }
+  .cartao-interesse { box-shadow: none; border: 1px solid #ccc; }
+  .features-grid { grid-template-columns: repeat(3, 1fr); }
+  .feature-card { box-shadow: none; }
+}
+.acoes-imovel { grid-template-columns: repeat(3, 1fr); max-width: 720px; }
+.carrossel-slide { max-height: 560px; }
+@media (max-width: 640px) {
+  .acoes-imovel { grid-template-columns: 1fr 1fr; }
+  .acoes-imovel .acao-whats { grid-column: 1 / -1; }
+  /* semelhantes em lista: foto à esquerda, texto à direita */
+  .semelhantes-grid { grid-template-columns: 1fr; gap: 10px; }
+  .semelhante-card { flex-direction: row; min-height: 96px; }
+  .semelhante-capa { flex: 0 0 120px; aspect-ratio: auto; font-size: 26px; }
+  .semelhante-corpo { justify-content: center; }
+  .selo-permuta.selo-mini { top: 6px; left: 4px; font-size: 9px; padding: 2px 6px; letter-spacing: 1px; }
+  .public-footer { padding-bottom: 90px; } /* não fica atrás do botão do WhatsApp */
+}
+.so-impressao { display: none; }
+@media print {
+  .contato-actions { display: block !important; }
+  .contato-actions a { display: none !important; }
+  .so-impressao { display: block; text-align: center; font-size: 15px; font-weight: 700; margin-top: 8px; }
+}
+
+/* =========================================================
+   Menu (☰ no celular, links no computador) + rodapé com contato
+   ========================================================= */
+.nav-publica { display: flex; gap: 4px; margin-left: auto; flex-wrap: wrap; justify-content: flex-end; }
+.nav-publica a { color: rgba(255,255,255,.85); text-decoration: none; font-size: 14px; font-weight: 600; padding: 8px 10px; border-radius: 8px; }
+.nav-publica a:hover { background: rgba(255,255,255,.1); color: #fff; }
+.public-header-inner .btn-anunciar-imovel { margin-left: 8px; }
+.btn-menu-publico { display: none; margin-left: auto; width: 46px; height: 46px; border-radius: 10px; border: 1px solid rgba(255,255,255,.3);
+  background: rgba(255,255,255,.08); color: #fff; font-size: 24px; cursor: pointer; }
+.btn-menu-publico:active, .menu-publico-item:active, .btn-todas-fotos:active { transform: scale(.98); filter: brightness(.92); }
+
+.menu-publico { position: fixed; inset: 0; z-index: 3000; background: rgba(15,23,42,.45); display: none; }
+body.menu-publico-aberto .menu-publico { display: block; }
+body.menu-publico-aberto { overflow: hidden; }
+.menu-publico-painel { position: absolute; top: 0; right: 0; bottom: 0; width: min(320px, 86vw); background: #fff;
+  padding: 64px 16px 20px; display: flex; flex-direction: column; gap: 10px; box-shadow: -8px 0 24px rgba(0,0,0,.2);
+  overflow-y: auto; animation: menuEntra .2s ease-out; }
+@keyframes menuEntra { from { transform: translateX(100%); } to { transform: none; } }
+.menu-publico-item { display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 16px; border: 1px solid var(--border);
+  border-radius: 10px; color: var(--text); text-decoration: none; font-size: 16px; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+.menu-publico-x { position: absolute; top: 12px; right: 12px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border);
+  background: #fff; font-size: 24px; line-height: 1; cursor: pointer; color: var(--text); }
+
+@media (max-width: 900px) {
+  .nav-publica { display: none; }
+  .btn-menu-publico { display: inline-flex; align-items: center; justify-content: center; }
+  .public-header-inner .btn-anunciar-imovel { display: none; } /* fica dentro do menu */
+}
+
+.rodape-colunas { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px 40px; text-align: left; padding: 8px 0 18px;
+  border-bottom: 1px solid rgba(255,255,255,.12); margin-bottom: 14px; }
+.rodape-colunas h4 { color: #fff; font-size: 17px; margin-bottom: 10px; }
+.rodape-colunas p { margin: 0 0 8px; font-size: 15px; }
+.rodape-colunas a { color: rgba(255,255,255,.85); text-decoration: none; display: inline-block; min-height: 32px; line-height: 32px; }
+.rodape-colunas a:hover { color: #fff; text-decoration: underline; }
+.rodape-copy { text-align: center; }
+
+/* "Veja todas as fotos" */
+.btn-todas-fotos { position: absolute; left: 10px; bottom: 10px; z-index: 2; min-height: 40px; padding: 0 14px; border-radius: 8px; border: 0;
+  background: rgba(15,23,42,.8); color: #fff; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.todas-fotos { position: fixed; inset: 0; z-index: 1900; background: rgba(15,23,42,.6); align-items: stretch; justify-content: center; }
+.todas-fotos-painel { background: #fff; width: min(1100px, 100%); height: 100%; overflow-y: auto; }
+.todas-fotos-topo { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; background: #fff; border-bottom: 1px solid var(--border); min-height: 64px; }
+.todas-fotos-topo .menu-publico-x { position: static; }
+.todas-fotos-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; padding: 12px 16px 24px; }
+.todas-fotos-item { padding: 0; border: 0; background: #E2E8F0; aspect-ratio: 4 / 3; border-radius: 8px; overflow: hidden; cursor: zoom-in; }
+.todas-fotos-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 640px) { .todas-fotos-grade { grid-template-columns: 1fr; } }
+@media print { .btn-todas-fotos, .btn-menu-publico, .nav-publica, .menu-publico, .todas-fotos { display: none !important; } }
+.carrossel-contador { top: 10px; bottom: auto; }          /* embaixo fica atrás do botão do WhatsApp */
+.rodape-colunas .muted { color: rgba(255,255,255,.7); }
+
+/* ---------- Favoritos ---------- */
+.acoes-imovel { grid-template-columns: repeat(4, 1fr); max-width: 900px; }
+.acoes-imovel #btn-favoritar.is-fav { background: #fff; color: #BE123C; border-color: #fff; }
+@media (max-width: 640px) {
+  .acoes-imovel { grid-template-columns: repeat(3, 1fr); }
+  .acoes-imovel button { font-size: 13px; padding: 8px 6px; }
+}
+.btn-fav { position: absolute; top: 8px; right: 8px; z-index: 3; width: 42px; height: 42px; border-radius: 50%; border: 0;
+  background: rgba(255,255,255,.92); color: #BE123C; font-size: 22px; line-height: 1; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.2); }
+.btn-fav.is-fav { background: #BE123C; color: #fff; }
+.btn-fav:active, .banner-btn:active { transform: scale(.94); filter: brightness(.92); }
+.contador-fav { display: inline-flex; min-width: 22px; height: 22px; padding: 0 6px; margin-left: 6px; border-radius: 999px;
+  background: #BE123C; color: #fff; font-size: 12px; font-weight: 800; align-items: center; justify-content: center; }
+.banner-lista { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px;
+  padding: 14px 16px; border-radius: 12px; background: #FFF1F2; border: 1px solid #FECDD3; }
+.banner-lista strong { font-size: 16px; color: #9F1239; }
+.banner-lista p { margin: 4px 0 0; font-size: 13px; color: var(--text-muted); }
+.banner-acoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; flex: 1 1 320px; }
+.banner-btn { min-height: 44px; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--border); background: #fff;
+  font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; color: var(--text); }
+.banner-btn.is-whats { background: #16A34A; border-color: #16A34A; color: #fff; }
+.banner-btn:disabled { opacity: .75; cursor: default; }
+.aviso-publico { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%); z-index: 4000; display: none;
+  width: min(92vw, 480px); padding: 12px 16px; border-radius: 10px; background: #14532D; color: #fff; font-size: 14px;
+  font-weight: 600; box-shadow: 0 6px 20px rgba(0,0,0,.25); text-align: center; }
+.aviso-publico.is-erro { background: #991B1B; }
+@media print { .btn-fav, .aviso-publico, #btn-favoritar { display: none !important; } }
+
+/* ---------- Vitrine: mais filtros ---------- */
+.filtros-row { grid-template-columns: 2fr 1fr 1fr; }
+.filtros-mais { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.btn-mais-filtros { display: none; min-height: 44px; border-radius: var(--radius-sm); border: 1px solid var(--border);
+  background: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+@media (max-width: 640px) {
+  .filtros-row { grid-template-columns: 1fr 1fr; }
+  .filtros-row #filtro-busca { grid-column: 1 / -1; }
+  .btn-mais-filtros { display: block; grid-column: 1 / -1; }
+  .filtros-mais { display: none; grid-template-columns: 1fr 1fr; }
+  .filtros-mais #filtro-bairro, .filtros-mais #filtro-ordem { grid-column: 1 / -1; }
+  body.filtros-abertos .filtros-mais { display: grid; }
+}
+
+/* ---------- Página do imóvel: ações (5), mídia, mapa, interesse ---------- */
+.acoes-imovel { grid-template-columns: repeat(5, 1fr); max-width: 1000px; }
+.acoes-imovel .acao-agendar { background: #2563EB; border-color: #2563EB; }
+@media (max-width: 640px) {
+  .acoes-imovel { grid-template-columns: repeat(6, 1fr); }
+  .acoes-imovel > button:not(.acao-agendar) { grid-column: span 2; }
+  .acoes-imovel .acao-agendar, .acoes-imovel .acao-whats { grid-column: span 3; }
+}
+.midia-conteudo { display: grid; gap: 12px; }
+.midia-video { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius-sm); overflow: hidden; background: #000; }
+.midia-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.midia-link { display: flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 10px;
+  background: var(--primary); color: #fff; text-decoration: none; font-weight: 700; }
+.mapa-regiao { position: relative; margin-top: 12px; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); }
+.mapa-regiao iframe { display: block; width: 100%; height: 260px; border: 0; }
+.mapa-legenda { position: absolute; left: 8px; bottom: 8px; padding: 2px 8px; border-radius: 6px; background: rgba(255,255,255,.9); font-size: 11px; }
+.btn-agendar-cartao { display: block; width: 100%; min-height: 48px; margin: 12px 0 10px; border: 0; border-radius: 10px;
+  background: #2563EB; color: #fff; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+.btn-agendar-cartao:active { transform: scale(.98); filter: brightness(.92); }
+.btn-agendar-cartao:disabled { opacity: .8; cursor: wait; }
+.interesse-painel { background: #fff; width: min(520px, 100%); height: 100%; overflow-y: auto; margin-left: auto; }
+@media (min-width: 641px) { .todas-fotos#modal-interesse { align-items: center; } .interesse-painel { height: auto; max-height: 92vh; margin: 0 auto; border-radius: 14px; } }
+.interesse-form { display: flex; flex-direction: column; gap: 10px; padding: 14px 16px 20px; }
+.interesse-form label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; color: var(--text); }
+.interesse-form input, .interesse-form select, .interesse-form textarea { font: inherit; font-size: 16px; padding: 10px 12px;
+  border: 1px solid var(--border); border-radius: 8px; font-weight: 400; }
+.interesse-lgpd { flex-direction: row !important; align-items: flex-start; gap: 8px !important; font-weight: 400 !important; font-size: 13px !important; }
+.interesse-lgpd input { width: 20px; height: 20px; margin-top: 1px; }
+.interesse-status { padding: 10px 12px; border-radius: 8px; font-size: 14px; font-weight: 600; }
+.interesse-status.is-erro { background: #FEE2E2; color: #991B1B; }
+.interesse-ok { padding: 24px 20px 28px; text-align: center; display: flex; flex-direction: column; gap: 12px; align-items: stretch; }
+.interesse-ok-icone { width: 64px; height: 64px; margin: 0 auto; border-radius: 50%; background: #DCFCE7; color: #166534;
+  font-size: 34px; display: flex; align-items: center; justify-content: center; font-weight: 800; }
+.interesse-ok strong { font-size: 18px; color: #166534; }
+.interesse-ok p { margin: 0; color: var(--text-muted); font-size: 14px; }
+.acao-whats-grande { display: flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 10px;
+  background: #16A34A; color: #fff; text-decoration: none; font-weight: 700; }
+@media print { .acao-agendar, .btn-agendar-cartao, #midia-section, .btn-mais-filtros { display: none !important; } .mapa-regiao iframe { height: 200px; } }
+.mapa-legenda { top: 8px; bottom: auto; } /* embaixo cobria os créditos do OpenStreetMap */

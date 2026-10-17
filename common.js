@@ -8,6 +8,8 @@ const enderecoHTML = () => `<span class="nw">${esc(S.ENDERECO_L1)}</span><br><sp
 const tenantRef = () => db.collection('tenants').doc(S.TENANT);
 
 function titulo(im) {
+  // Título do anúncio (Rently) tem prioridade; o apelido é identificação interna
+  if (im.tituloAnuncio) return im.tituloAnuncio;
   if (im.apelido) return im.apelido;
   const e = im.endereco || {};
   return `${SUB[im.subtipo] || 'Imóvel'}${e.bairro ? ' – ' + e.bairro : ''}`;
@@ -25,7 +27,7 @@ function card(im) {
   return `<a class="card" href="imovel.html?id=${encodeURIComponent(im.id)}">
     <div class="card-img">${im.coverUrl ? `<img loading="lazy" src="${esc(im.coverUrl)}" alt="${esc(titulo(im))}">` : '<div class="noimg">Sem foto</div>'}<span class="tag">${badge(im)}</span></div>
     <div class="card-body"><h3>${esc(titulo(im))}</h3><p class="loc">${esc(local(im))}</p>
-    <p class="feats">${feats.map(esc).join(' · ')}</p><div class="price">${preco(im)}</div></div></a>`;
+    <p class="feats">${feats.map(esc).join(' · ')}</p><div class="price">${preco(im)}</div>${im.codigoAnuncio ? `<p class="small" style="color:var(--muted);margin:.4em 0 0">Cód. ${esc(im.codigoAnuncio)}</p>` : ''}</div></a>`;
 }
 async function carregarVitrine() {
   const snap = await tenantRef().collection('vitrine').get();

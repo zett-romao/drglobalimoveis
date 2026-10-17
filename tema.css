@@ -1,0 +1,23 @@
+/* D.R. Global Imóveis — tema da vitrine do Rently com as cores e fontes do site.
+   Carregado depois do public.css (o sincronizador injeta o <link>). Não é sincronizado. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+:root {
+  --primary: #232653;        /* navy do site */
+  --primary-dark: #232653;
+  --primary-light: #e3e7ec;
+  --sidebar-bg: #232653;     /* cabeçalho e rodapé */
+  --accent: #b29b52;         /* dourado */
+  --bg: #f6f7f9;
+}
+body.public-page { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; }
+.public-hero h1, .public-section h3, .public-header-text h2, .rodape-colunas h4,
+.vitrine-card-title, .cartao-interesse h3 { font-family: 'Playfair Display', Georgia, serif; }
+.public-hero { background: linear-gradient(120deg, #232653 0%, #2f3470 100%); }
+.public-hero.mode-locacao { background: linear-gradient(120deg, #232653 0%, #2f3470 100%); }
+.public-hero.mode-venda { background: linear-gradient(120deg, #2f3470 0%, #232653 100%); }
+.public-breadcrumb, .public-codigo { color: #d6c38a; }
+.vitrine-tab.active, .vitrine-tab.tab-aluguel.active, .vitrine-tab.tab-venda.active { background: #b29b52; border-color: #b29b52; box-shadow: 0 2px 8px rgba(178,155,82,.35); }
+.btn-anunciar-imovel { background: linear-gradient(135deg, #b29b52, #9a8443); }
+.acoes-imovel .acao-agendar, .btn-agendar-cartao { background: #b29b52; border-color: #b29b52; }
+.semelhante-preco, .vitrine-card-price { color: #232653; }
+.public-logo { background: #fff; object-fit: contain; }

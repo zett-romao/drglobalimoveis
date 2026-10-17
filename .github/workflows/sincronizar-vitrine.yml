@@ -1,0 +1,34 @@
+name: Sincronizar vitrine do Rently
+
+# A vitrine deste site é a do DRG-Rently. Toda melhoria feita lá chega aqui
+# sozinha: o workflow roda a cada hora (e pelo botão "Run workflow").
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/sincronizar-vitrine.sh'
+      - '.github/workflows/sincronizar-vitrine.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  sincronizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copiar vitrine do Rently
+        run: bash scripts/sincronizar-vitrine.sh
+      - name: Publicar se mudou
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "DRG-Rently (sincronizador)"
+            git config user.email "actions@users.noreply.github.com"
+            git add -A
+            git commit -m "chore: vitrine sincronizada com o DRG-Rently"
+            git push
+          else
+            echo "Nada mudou no Rently."
+          fi
