@@ -4,5 +4,5 @@
 window.RENTLY_TENANT_FIXO = 'K52yZ4nqu7Z7DJfVegYo';   // D.R. Global Imóveis no Rently
 window.RENTLY_SITE = {
   inicio: 'index.html',                                  // "Início" do menu volta para a home institucional
-  parceiro: 'https://rently.dev.br/parceiro.html',       // cadastro de corretor parceiro fica no Rently
+  parceiro: 'corretor.html',                          // "Seja corretor parceiro" abre a Área do corretor deste site
 };
