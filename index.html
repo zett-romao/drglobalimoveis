@@ -1,90 +1,19 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-<script src="config.js"></script><script src="selo-digital.js"></script><script src="common.js"></script>
-
 <title>D.R. Global Imóveis Digital – Locação, venda e administração de imóveis</title>
 <meta name="description" content="D.R. Global Imóveis: locação, venda, administração de aluguéis e avaliação de imóveis em todo o estado de São Paulo. CRECI/PJ 43.112-J.">
 <meta property="og:title" content="D.R. Global Imóveis Digital"><meta property="og:image" content="logo.png">
-</head><body data-page="home"><header id="header"></header>
-<section class="hero"><div class="wrap">
-<h1>Seu imóvel em boas mãos, do anúncio à venda ou ao repasse do aluguel.</h1>
-<p>Locação, venda, administração de aluguéis e avaliação de imóveis em todo o estado de São Paulo, com atendimento próximo de você e transparência em cada fase da negociação.</p>
-<div class="ctas"><a class="btn btn-gold" href="imoveis.html">Ver imóveis disponíveis</a><a class="btn btn-out" href="#anuncie">Anunciar meu imóvel</a></div>
-</div></section>
-<div class="wrap search"><form id="busca">
-<select name="f"><option value="">Comprar ou alugar</option><option value="locacao">Alugar</option><option value="venda">Comprar</option></select>
-<select name="tipo"><option value="">Tipo de imóvel</option><option value="apartamento">Apartamento</option><option value="casa">Casa</option><option value="sobrado">Sobrado</option><option value="kitnet">Kitnet</option><option value="sala">Sala comercial</option><option value="loja">Loja</option><option value="galpao">Galpão</option><option value="terreno">Terreno</option></select>
-<select name="q"><option value="">Quartos</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select>
-<input name="b" placeholder="Bairro ou cidade">
-<button class="btn btn-gold">Buscar</button></form></div>
-
-<section><div class="wrap">
-<div class="center"><div class="eyebrow">Vitrine</div><h2>Imóveis em destaque</h2><p class="lead">Atualizados diretamente do nosso sistema de gestão.</p></div>
-<div id="destaques" class="grid"><div class="empty">Carregando imóveis…</div></div>
-<p class="center" style="margin-top:30px"><a class="btn btn-gold" href="imoveis.html">Ver todos os imóveis</a></p>
-</div></section>
-
-<section class="services" id="servicos"><div class="wrap">
-<div class="center"><h2>Serviços</h2><p class="lead">Soluções completas para proprietários, locatários e compradores.</p></div>
-<div class="svc">
-<div><div class="ic">🏡</div><h3>Compra e venda</h3><p>Intermediação na compra e venda de imóveis residenciais e comerciais, com apoio na documentação até a escritura.</p></div>
-<div><div class="ic">🔑</div><h3>Locação</h3><p>Divulgação do imóvel, visitas, análise cadastral do interessado e contrato com as garantias adequadas.</p></div>
-<div><div class="ic">📊</div><h3>Administração de aluguéis</h3><p>Cobrança mensal, repasse ao proprietário, prestação de contas e acompanhamento do contrato até a entrega das chaves.</p></div>
-<div><div class="ic">📐</div><h3>Avaliação de imóveis (PTAM)</h3><p>Parecer Técnico de Avaliação Mercadológica elaborado por corretor avaliador inscrito no CNAI.</p></div>
-</div></div></section>
-
-<section class="navy" id="anuncie"><div class="wrap split">
-<div><div class="eyebrow">Proprietário</div><h2>Anuncie seu imóvel conosco</h2>
-<p class="lead">Envie os dados do seu imóvel e nossa equipe entra em contato para avaliar, fotografar e divulgar.</p>
-<ul class="checks"><li>Divulgação no site e nos principais portais imobiliários</li><li>Análise cadastral dos interessados</li><li>Contrato, vistoria e garantias</li><li>Repasse e prestação de contas mensais</li></ul></div>
-<form class="form" id="form-anuncie">
-<div class="row"><input name="nome" required maxlength="200" placeholder="Seu nome*"><input name="telefone" required placeholder="WhatsApp*"></div>
-<input name="email" type="email" placeholder="E-mail">
-<div class="row"><select name="finalidade" required><option value="">Finalidade*</option><option value="locacao">Alugar</option><option value="venda">Vender</option><option value="ambos">Alugar ou vender</option></select>
-<select name="tipo"><option value="">Tipo</option><option>Apartamento</option><option>Casa</option><option>Sobrado</option><option>Sala comercial</option><option>Loja</option><option>Galpão</option><option>Terreno</option><option>Outro</option></select></div>
-<input name="cidadeBairro" placeholder="Bairro / cidade">
-<textarea name="descricao" rows="3" maxlength="5000" placeholder="Conte um pouco sobre o imóvel"></textarea>
-<small>Ao enviar, você autoriza o contato da D.R. Global Imóveis sobre este anúncio.</small>
-<button class="btn btn-gold">Enviar</button><div id="anuncie-msg"></div>
-</form></div></section>
-
-<section class="services" id="corretores"><div class="wrap split">
-<div><div class="eyebrow">Corretor de imóveis</div><h2>Venda com a D.R. Global</h2>
-<p class="lead">Cadastre os seus imóveis na nossa rede, venda o acervo da imobiliária e receba a sua parte da comissão — tudo registrado no sistema.</p></div>
-<div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-start"><a class="btn btn-gold" href="corretor.html">Área do corretor</a></div>
-</div></section>
-
-<section id="contato"><div class="wrap">
-<div class="center"><div class="eyebrow">Fale conosco</div><h2>Contato</h2></div>
-<div class="contact">
-<div><h3>WhatsApp</h3><p><a id="c-wa" target="_blank" rel="noopener"></a></p><p class="lead">Atendimento para locação, venda e administração.</p></div>
-<div><h3>E-mail</h3><p><a id="c-mail"></a></p></div>
-<div><h3>Endereço</h3><p id="c-end"></p></div>
-</div></div></section>
+<!-- Página inicial desenhada pelo motor do "🌐 Meu site" do DRG-Rently (site-engine.js, sincronizado).
+     Textos, imagens, cores e blocos são editados no Rently e publicados por quem tem a permissão. -->
+<link rel="stylesheet" href="site.css">
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="config.js"></script><script src="selo-digital.js"></script><script src="rently-site.js"></script>
+</head><body>
+<header id="header"></header>
+<main id="site-blocos"><section><div class="wrap center"><p class="lead">Carregando…</p>
+<noscript><p>D.R. Global Imóveis — locação, venda e administração de imóveis. WhatsApp +55 11 5296-0840 · atendimento@drglobalimoveis.com.br</p></noscript></div></section></main>
 <footer id="footer"></footer>
-<script>
-document.addEventListener('DOMContentLoaded', async () => {
-  $('#busca').addEventListener('submit', ev => { ev.preventDefault(); const f = new FormData(ev.target); location.href = 'imoveis.html?' + new URLSearchParams([...f].filter(x => x[1])); });
-  $('#c-wa').href = wa('Olá! Vim pelo site da D.R. Global Imóveis.'); $('#c-wa').textContent = S.WHATSAPP_FMT;
-  $('#c-mail').href = 'mailto:' + S.EMAIL; $('#c-mail').textContent = S.EMAIL; $('#c-end').innerHTML = enderecoHTML();
-  try {
-    const ims = (await carregarVitrine()).sort((a, b) => (b.atualizadoEm?.seconds || 0) - (a.atualizadoEm?.seconds || 0)).slice(0, 6);
-    $('#destaques').innerHTML = ims.length ? ims.map(card).join('') : '<div class="empty">Novos imóveis em breve. Fale conosco pelo WhatsApp para conhecer as opções disponíveis.</div>';
-  } catch (e) { $('#destaques').innerHTML = '<div class="empty">Não foi possível carregar os imóveis agora.</div>'; console.error(e); }
-  $('#form-anuncie').addEventListener('submit', async (ev) => {
-    ev.preventDefault(); const f = Object.fromEntries(new FormData(ev.target)); const msg = $('#anuncie-msg'); const bt = ev.target.querySelector('button'); bt.disabled = true;
-    try {
-      await tenantRef().collection('leadsImoveis').add({ origem: 'vitrine_publica', nome: f.nome.trim(), telefone: f.telefone.trim(), email: f.email.trim() || null,
-        finalidade: f.finalidade, tipo: f.tipo || null, cidadeBairro: f.cidadeBairro.trim() || null, descricao: f.descricao.trim() || null, status: 'novo',
-        criadoEm: firebase.firestore.FieldValue.serverTimestamp(), userAgent: navigator.userAgent.slice(0, 200), url: location.href });
-      ev.target.reset(); msg.innerHTML = '<div class="ok">Recebemos seus dados. Em breve entraremos em contato.</div>';
-    } catch (e) { console.error(e); msg.innerHTML = '<div class="err">Não foi possível enviar. Fale conosco pelo WhatsApp.</div>'; }
-    bt.disabled = false;
-  });
-});
-</script></body></html>
+<script src="site-padrao.js"></script><script src="site-engine.js"></script>
+</body></html>

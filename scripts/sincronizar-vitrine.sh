@@ -5,7 +5,7 @@
 # Rodado pelo workflow .github/workflows/sincronizar-vitrine.yml (a cada hora e manual).
 set -euo pipefail
 BASE="https://raw.githubusercontent.com/zett-romao/drg-rently/main"
-ARQS="imoveis.html imovel.html public-imoveis.js public-imovel.js public-shell.js public.css styles.css firebase-config.js icones/favicon.ico icones/favicon-32.png"
+ARQS="site.css site-engine.js site-padrao.js imoveis.html imovel.html public-imoveis.js public-imovel.js public-shell.js public.css styles.css firebase-config.js icones/favicon.ico icones/favicon-32.png"
 mkdir -p icones
 TMP=$(mktemp -d)
 for a in $ARQS; do

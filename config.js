@@ -11,7 +11,12 @@ window.SITE = {
   RESPONSAVEL: 'Aparecido Donizete Romão',
   ENDERECO: 'Alameda Rio Negro, 1030 – Escritório 206 – Alphaville – Barueri/SP – CEP 06454-000',
   ENDERECO_L1: 'Alameda Rio Negro, 1030 – Escritório 206',
-  ENDERECO_L2: 'Alphaville – Barueri/SP – CEP 06454-000'
+  ENDERECO_L2: 'Alphaville – Barueri/SP – CEP 06454-000',
+  // Usados pelo motor do "Meu site" (site-padrao.js) enquanto não houver site publicado pelo Rently
+  SELO_TEXTO: 'digital',
+  SEO_TITULO: 'D.R. Global Imóveis Digital – Locação, venda e administração de imóveis',
+  SEO_DESCRICAO: 'D.R. Global Imóveis: locação, venda, administração de aluguéis e avaliação de imóveis em todo o estado de São Paulo. CRECI/PJ 43.112-J.',
+  HERO_TEXTO: 'Locação, venda, administração de aluguéis e avaliação de imóveis em todo o estado de São Paulo, com atendimento próximo de você e transparência em cada fase da negociação.'
 };
 const firebaseConfig = {
   apiKey: "AIzaSyBnkH-HvtOnrXBwupBHdhF107C7ysDUnI4",
