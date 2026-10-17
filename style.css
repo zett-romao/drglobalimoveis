@@ -122,3 +122,4 @@ a.fx{color:inherit;text-decoration:underline;text-underline-offset:2px}
 @media(max-width:600px){#header .nav{min-height:100px}#header .brand{font-size:1.3rem;gap:12px}#header .brand img{height:60px}#header .brand-creci{font-size:.62rem}}
 #header .brand img{flex:none;width:auto;max-width:none;aspect-ratio:286/284}
 @media(max-width:600px){#header .brand .dig{flex-basis:100%;margin:2px 0 0}}
+.svc .ic{padding:0;border:0;line-height:1}  /* o emoji fica no centro do quadradinho (a regra .svc div dava padding nele também) */
