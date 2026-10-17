@@ -111,3 +111,14 @@ a.fx{color:inherit;text-decoration:underline;text-underline-offset:2px}
 @media(max-width:600px){#header .nav{height:auto;min-height:94px;padding-block:10px}#header .brand{font-size:1.25rem}#header .brand img{height:52px}}
 @media(max-width:1100px){.nw{white-space:normal}}  /* endereço quebra linha em telas médias (evita rolagem lateral) */
 .contact div{min-width:0}.contact a{overflow-wrap:anywhere}  /* e-mail longo não empurra a página para o lado */
+/* Marca do cabeçalho +30% (logo, nome, "digital") com o CRECI bem pequeno embaixo; o menu fica como está */
+#header .nav{height:112px}
+#header .brand{font-size:1.95rem;gap:16px}
+#header .brand img{height:78px}
+#header .brand>span{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:.25em;line-height:1.1}
+#header .brand .dig{margin-left:.2em}
+#header .brand-creci{flex-basis:100%;font-family:'Inter',system-ui,sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.12em;color:var(--muted);margin-top:.35em}
+@media(max-width:1180px){#header nav{top:112px}}
+@media(max-width:600px){#header .nav{min-height:100px}#header .brand{font-size:1.3rem;gap:12px}#header .brand img{height:60px}#header .brand-creci{font-size:.62rem}}
+#header .brand img{flex:none;width:auto;max-width:none;aspect-ratio:286/284}
+@media(max-width:600px){#header .brand .dig{flex-basis:100%;margin:2px 0 0}}

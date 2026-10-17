@@ -39,7 +39,7 @@ async function carregarLogo() {
 function montarLayout() {
   const page = document.body.dataset.page;
   $('#header').innerHTML = `<div class="wrap nav">
-    <a class="brand" href="index.html"><img src="logo.png" alt="D.R. Global"><span><b>D.R. Global</b> Imóveis<span class="dig" data-selo></span></span></a>
+    <a class="brand" href="index.html"><img src="logo.png" alt="D.R. Global"><span><b>D.R. Global</b> Imóveis<span class="dig" data-selo></span><small class="brand-creci">CRECI/PJ ${S.CRECI_PJ}</small></span></a>
     <button class="menu-btn" aria-label="Menu" onclick="document.body.classList.toggle('menu-open')">☰</button>
     <nav><a href="index.html" ${page==='home'?'class="on"':''}>Início</a><a href="imoveis.html" ${page==='imoveis'?'class="on"':''}>Imóveis</a>
     <a href="index.html#servicos">Serviços</a><a href="index.html#anuncie">Anuncie</a><a href="corretor.html" ${page==='corretor'?'class="on"':''}>Corretor</a><a href="index.html#contato">Contato</a>
