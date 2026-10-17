@@ -21,3 +21,9 @@ body.public-page { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', R
 .acoes-imovel .acao-agendar, .btn-agendar-cartao { background: #b29b52; border-color: #b29b52; }
 .semelhante-preco, .vitrine-card-price { color: #232653; }
 .public-logo { background: #fff; object-fit: contain; }
+
+/* "digital" desenhado ao lado do nome na vitrine (cabeçalho e rodapé são azul-marinho) */
+.selo-marca { color: #d6c38a; }
+/* no cabeçalho da vitrine o "digital" fica alinhado embaixo do nome (como no celular) */
+.public-header-text h2 .selo-marca { display: block; margin: 4px 0 0; top: 0; height: .78em; }
+@media (min-width: 700px) { .public-header-text { flex: none; } .public-header-text h2, .public-header-text p { white-space: nowrap; } }

@@ -16,7 +16,7 @@ done
 for p in imoveis.html imovel.html; do
   # tema depois do public.css; configuração do site antes do public-shell.js
   sed -i -E 's#(<link rel="stylesheet" href="public\.css[^"]*">)#\1\n  <link rel="stylesheet" href="tema.css">#' "$TMP/$p"
-  sed -i -E 's#(<script src="public-shell\.js[^"]*"></script>)#<script src="rently-site.js"></script>\n  \1#' "$TMP/$p"
+  sed -i -E 's#(<script src="public-shell\.js[^"]*"></script>)#<script src="selo-digital.js"></script>\n  <script src="rently-site.js"></script>\n  \1#' "$TMP/$p"
   grep -q 'href="tema.css"' "$TMP/$p" && grep -q 'src="rently-site.js"' "$TMP/$p" || { echo "ERRO: não achei onde injetar em $p — layout do Rently mudou"; exit 1; }
 done
 for a in $ARQS; do cp "$TMP/$a" "$a"; done
