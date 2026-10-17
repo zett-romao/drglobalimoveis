@@ -123,3 +123,9 @@ a.fx{color:inherit;text-decoration:underline;text-underline-offset:2px}
 #header .brand img{flex:none;width:auto;max-width:none;aspect-ratio:286/284}
 @media(max-width:600px){#header .brand .dig{flex-basis:100%;margin:2px 0 0}}
 .svc .ic{padding:0;border:0;line-height:1}  /* o emoji fica no centro do quadradinho (a regra .svc div dava padding nele também) */
+/* Itens do menu 30% menores (pedido do dono): só o menu e o botão do WhatsApp */
+#header nav{gap:20px}
+#header nav a{font-size:.91rem}
+#header nav .btn.sm{font-size:.82rem;padding:.5em 1.1em}
+/* abaixo de 1230px o menu encostaria na marca: vira ☰ */
+@media(min-width:1181px) and (max-width:1230px){#header .menu-btn{display:block}#header nav{display:none;position:absolute;top:112px;left:0;right:0;background:#fff;flex-direction:column;padding:18px;gap:14px;box-shadow:0 8px 20px rgba(0,0,0,.08)}.menu-open #header nav{display:flex}}
