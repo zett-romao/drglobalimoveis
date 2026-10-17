@@ -99,3 +99,15 @@ a.fx{color:inherit;text-decoration:underline;text-underline-offset:2px}
 @media(max-width:600px){.brand>span .dig{display:block;margin:3px 0 0;top:0;height:.85em}}
 /* CRECI no destaque da home: discreto, abaixo da marca */
 .hero .hero-creci{font-size:.72rem;letter-spacing:.14em;font-weight:600;opacity:.85;margin-bottom:.9em}
+/* Cabeçalho 30% maior (pedido do dono, 17/10/2026): altura, logo, nome, menu e botões */
+#header .nav{height:94px}
+#header .brand{font-size:1.5rem;gap:13px}
+#header .brand img{height:60px}
+#header nav{gap:29px}
+#header nav a{font-size:1.3rem}
+#header nav .btn.sm{font-size:1.17rem;padding:.5em 1.1em}
+#header .menu-btn{font-size:2.08rem}
+@media(max-width:1180px){#header .menu-btn{display:block}#header nav{display:none;position:absolute;top:94px;left:0;right:0;background:#fff;flex-direction:column;padding:18px;gap:14px;box-shadow:0 8px 20px rgba(0,0,0,.08)}.menu-open #header nav{display:flex}}
+@media(max-width:600px){#header .nav{height:auto;min-height:94px;padding-block:10px}#header .brand{font-size:1.25rem}#header .brand img{height:52px}}
+@media(max-width:1100px){.nw{white-space:normal}}  /* endereço quebra linha em telas médias (evita rolagem lateral) */
+.contact div{min-width:0}.contact a{overflow-wrap:anywhere}  /* e-mail longo não empurra a página para o lado */
