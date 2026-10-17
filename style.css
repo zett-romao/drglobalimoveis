@@ -129,3 +129,6 @@ a.fx{color:inherit;text-decoration:underline;text-underline-offset:2px}
 #header nav .btn.sm{font-size:.82rem;padding:.5em 1.1em}
 /* abaixo de 1230px o menu encostaria na marca: vira ☰ */
 @media(min-width:1181px) and (max-width:1230px){#header .menu-btn{display:block}#header nav{display:none;position:absolute;top:112px;left:0;right:0;background:#fff;flex-direction:column;padding:18px;gap:14px;box-shadow:0 8px 20px rgba(0,0,0,.08)}.menu-open #header nav{display:flex}}
+/* Nome no cabeçalho um pouco mais encorpado (pedido do dono) */
+#header .brand b{font-weight:800}
+#header .brand>span{font-weight:500}
