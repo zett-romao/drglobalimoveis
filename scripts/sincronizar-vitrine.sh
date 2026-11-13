@@ -21,4 +21,11 @@ for p in imoveis.html imovel.html; do
 done
 for a in $ARQS; do cp "$TMP/$a" "$a"; done
 rm -rf "$TMP"
+# Cache-busting das páginas próprias (home e área do corretor): o motor do Meu site vem sem ?v=
+# e o navegador seguia com a cópia velha (13/11/2026: imóvel indisponível continuou na home).
+for a in site.css site-engine.js site-padrao.js; do
+  v=$(md5sum "$a" | cut -c1-8)
+  esc=$(printf '%s' "$a" | sed 's/\./\\./g')
+  sed -i -E "s#(href|src)=\"${esc}(\?v=[^\"]*)?\"#\1=\"${a}?v=${v}\"#g" index.html corretor.html
+done
 echo "Vitrine sincronizada."
